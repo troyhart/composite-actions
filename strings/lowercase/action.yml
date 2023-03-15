@@ -1,0 +1,21 @@
+name: strings-lowercase
+description: Transform a string to lowercase
+
+inputs:
+  string-value:
+    description: Source string
+    required: true
+
+outputs:
+  result:
+    description: Lowercase string
+    value: ${{ steps.lowercase.outputs.result }}
+
+runs:
+  using: composite
+
+  steps:
+    - id: lowercase
+      shell: bash
+      run: echo "result=$(echo "${{ inputs.string-value }}" | awk '{print tolower($0)}')" >> $GITHUB_OUTPUT
+

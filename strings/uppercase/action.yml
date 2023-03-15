@@ -1,0 +1,21 @@
+name: strings-uppercase
+description: Transform a string to uppercase
+
+inputs:
+  string-value:
+    description: Source string
+    required: true
+
+outputs:
+  result:
+    description: Uppercase string
+    value: ${{ steps.uppercase.outputs.result }}
+
+runs:
+  using: composite
+
+  steps:
+    - id: uppercase
+      shell: bash
+      run: echo "result=$(echo "${{ inputs.string-value }}" | awk '{print toupper($0)}')" >> $GITHUB_OUTPUT
+
